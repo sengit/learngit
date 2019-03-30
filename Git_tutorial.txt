@@ -1,0 +1,108 @@
+Git 的安装教程
+https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000/00137396287703354d8c6c01c904c7d9ff056ae23da865a000
+
+在要创建版本库的文件夹下
+git init   （ls -a 查看是否创建成功）
+
+git add readme.txt (添加文件到仓库)
+git add readme1.txt (添加文件到仓库)
+
+git commit -m "add readme file" (把文件提交到仓库)
+
+git log (显示提交日志 详细)
+git log --pretty=oneline (显示提交日志 简化)
+
+git reset --hard commit id （版本回退）
+
+回退版本之后再想变回去就要找到版本号 ：git reflog
+git reflog 显示每次的命令
+
+git status 查看状态比如你添加了哪些文件 修改了哪些文件
+先用 git add 把工作区（没提交前 你修改的内容在工作区）的文件提交到版本库 然后git commit 
+
+第一次修改 -> git add -> 第二次修改 -> git commit   （这样只提交了第一次修改）
+第二次 git add 计入暂存区
+
+git diff HEAD -- readme.txt命令可以查看工作区和版本库里面最新版本的区别
+
+git checkout -- readme.txt 撤销修改
+一种是readme.txt自修改后还没有被放到暂存区，现在，撤销修改就回到和版本库一模一样的状态；
+一种是readme.txt已经添加到暂存区后，又作了修改，现在，撤销修改就回到添加到暂存区后的状态。
+总之，就是让这个文件回到最近一次git commit或git add时的状态。
+
+如果想把暂存区东西撤回到工作区
+git reset HEAD readme.txt
+然后在 git checkout -- readme.txt 撤销修改
+
+删除文件
+在工作区 删除文件
+然后 git rm readme.txt 确定删除
+git checkout -- readme.txt 取消删除
+
+
+添加远程仓库（先建立ssh key）
+$ git remote add origin git@github.com:michaelliao/learngit.git
+把本地内容提交到远程仓库
+$ git push -u origin master （-u 第一次 将本地master 与远程master关联）
+之后提交
+$ git push origin master
+
+从远程克隆
+创建远程仓库
+https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000/001375233990231ac8cf32ef1b24887a5209f83e01cb94b000
+克隆
+git clone git@github.com:michaelliao/gitskills.git
+
+
+git commit -a 加入工作区并提交
+git commit -am "add readme.txt" 加入工作区并提交加备注
+
+ssh建立
+本地生成
+$ ssh-keygen -t rsa -C "youremail@example.com"
+复制到
+https://github.com/settings/keys
+
+分支（https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000/0013743862006503a1c5bf5a783434581661a3cc2084efa000）
+创建分支
+git checkout -b dev  （-b 切换到分支）
+或者
+git branch dev       创建
+git checkout dev	 切换
+
+git branch 显示所有分支 *表示当前所处分支
+
+
+git checkout master 切换到主分支
+
+git merge dev 把dev 并入当前分支
+
+git branch -d dev  删除分支
+
+标签
+git tag
+
+git checkout master 切换到要打标签的分支
+git tag v1.0
+
+git tag 显示所有标签
+
+默认标签是打在最新提交的commit上的。
+有时候，如果忘了打标签，怎么办？
+方法是找到历史提交的commit id
+git log --pretty=oneline --abbrev-commit
+git tag v0.9 commit id
+
+git tag -d v0.1   删除标签
+
+
+git push origin v1.0  推送某个标签到远程
+
+git push origin --tags 一次性推送全部尚未推送到远程的本地标签
+
+删除远程标签就麻烦一点  先从本地删除
+git tag -d v0.9
+git push origin :refs/tags/v0.9
+
+
+
